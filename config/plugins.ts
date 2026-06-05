@@ -4,13 +4,40 @@ export default ({ env }) => ({
             jwtSecret: env('JWT_SECRET'),
         },
     },
+    email: {
+        config: {
+            provider: 'nodemailer',
+            providerOptions: {
+                host: env('EMAIL_HOST'),
+                port: env.int('EMAIL_PORT', 587),
+                secure: env.bool('EMAIL_SECURE', false),
+                auth: {
+                    user: env('EMAIL_USER'),
+                    pass: env('EMAIL_PASS'),
+                },
+            },
+            settings: {
+                defaultFrom: env('EMAIL_FROM'),
+                defaultReplyTo: env('EMAIL_FROM'),
+            },
+        },
+    },
     upload: {
         config: {
-            provider: 'cloudinary',
+            provider: 'aws-s3',
             providerOptions: {
-                cloud_name: env('CLOUDINARY_NAME'),
-                api_key: env('CLOUDINARY_KEY'),
-                api_secret: env('CLOUDINARY_SECRET'),
+                baseUrl: env('R2_PUBLIC_URL'),
+                s3Options: {
+                    credentials: {
+                        accessKeyId: env('R2_ACCESS_KEY_ID'),
+                        secretAccessKey: env('R2_SECRET_ACCESS_KEY'),
+                    },
+                    region: 'auto',
+                    endpoint: env('R2_ENDPOINT'),
+                    params: {
+                        Bucket: env('R2_BUCKET'),
+                    },
+                },
             },
             actionOptions: {
                 upload: {},

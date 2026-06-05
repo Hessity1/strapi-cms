@@ -11,10 +11,14 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.11.3",
-    "@strapi/plugin-users-permissions": "5.11.3",
-    "@strapi/provider-upload-cloudinary": "5.11.3",
-    "@strapi/strapi": "5.11.3",
+    "@_sh/strapi-plugin-ckeditor": "^7.1.1",
+    "@strapi/plugin-cloud": "5.47.1",
+    "@strapi/plugin-color-picker": "5.47.1",
+    "@strapi/plugin-documentation": "5.47.1",
+    "@strapi/plugin-users-permissions": "5.47.1",
+    "@strapi/provider-email-nodemailer": "^5.47.1",
+    "@strapi/provider-upload-aws-s3": "5.47.1",
+    "@strapi/strapi": "5.47.1",
     "pg": "8.8.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -29,7 +33,7 @@
     "typescript": "^5"
   },
   "engines": {
-    "node": "20"
+    "node": ">=20.0.0 <=22.x.x"
   },
   "strapi": {
     "uuid": "fbaf61cd-dcdc-45ae-bf43-8781f5861c55"
