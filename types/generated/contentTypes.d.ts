@@ -440,6 +440,114 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface PluginCommentsComment extends Struct.CollectionTypeSchema {
+  collectionName: 'plugin_comments_comments';
+  info: {
+    description: 'Comment content type';
+    displayName: 'Comment';
+    kind: 'collectionType';
+    pluralName: 'comments';
+    singularName: 'comment';
+    tableName: 'plugin-comments-comments';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    approvalStatus: Schema.Attribute.Enumeration<
+      ['PENDING', 'APPROVED', 'REJECTED']
+    >;
+    authorAvatar: Schema.Attribute.String;
+    authorEmail: Schema.Attribute.Email;
+    authorId: Schema.Attribute.String;
+    authorName: Schema.Attribute.String;
+    authorUser: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    blockedThread: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    blockReason: Schema.Attribute.String;
+    content: Schema.Attribute.Text & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    isAdminComment: Schema.Attribute.Boolean;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::comments.comment'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    related: Schema.Attribute.String;
+    removed: Schema.Attribute.Boolean;
+    reports: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::comments.comment-report'
+    >;
+    threadOf: Schema.Attribute.Relation<'oneToOne', 'plugin::comments.comment'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface PluginCommentsCommentReport
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'plugin_comments_reports';
+  info: {
+    description: 'Reports content type';
+    displayName: 'Reports';
+    kind: 'collectionType';
+    pluralName: 'comment-reports';
+    singularName: 'comment-report';
+    tableName: 'plugin-comments-reports';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    content: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::comments.comment-report'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    reason: Schema.Attribute.Enumeration<
+      ['BAD_LANGUAGE', 'DISCRIMINATION', 'OTHER']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'OTHER'>;
+    related: Schema.Attribute.Relation<'manyToOne', 'plugin::comments.comment'>;
+    resolved: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -674,6 +782,178 @@ export interface PluginReviewWorkflowsWorkflowStage
       'manyToOne',
       'plugin::review-workflows.workflow'
     >;
+  };
+}
+
+export interface PluginStrapiIdentityEmailOtp
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'email-otps';
+  info: {
+    displayName: 'Email OTP';
+    pluralName: 'email-otps';
+    singularName: 'email-otp';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    admin_user: Schema.Attribute.Relation<'oneToOne', 'admin::user'>;
+    attempts: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    code_hash: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    expires_at: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::strapi-identity.email-otp'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    purpose: Schema.Attribute.Enumeration<['login', 'setup', 'disable']> &
+      Schema.Attribute.DefaultTo<'login'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface PluginStrapiIdentityMfaTemp
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'mfa-temps';
+  info: {
+    displayName: 'MFA Temp';
+    pluralName: 'mfa-temps';
+    singularName: 'mfa-temp';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    admin_user: Schema.Attribute.Relation<'oneToOne', 'admin::user'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::strapi-identity.mfa-temp'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    secret: Schema.Attribute.String & Schema.Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface PluginStrapiIdentityMfaToken
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'mfa-tokens';
+  info: {
+    displayName: 'MFA Token';
+    pluralName: 'mfa-tokens';
+    singularName: 'mfa-token';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    admin_user: Schema.Attribute.Relation<'oneToOne', 'admin::user'>;
+    counter: Schema.Attribute.BigInteger & Schema.Attribute.DefaultTo<'0'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    digits: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<6>;
+    enabled: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::strapi-identity.mfa-token'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    recovery_codes: Schema.Attribute.JSON & Schema.Attribute.Private;
+    secret: Schema.Attribute.String & Schema.Attribute.Private;
+    type: Schema.Attribute.Enumeration<['totp', 'hotp', 'email']> &
+      Schema.Attribute.DefaultTo<'totp'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface PluginStrapiIdentityStrapiIdentityConfig
+  extends Struct.SingleTypeSchema {
+  collectionName: 'strapi-identity-config';
+  info: {
+    displayName: 'Strapi Identity Config';
+    pluralName: 'strapi-identity-configs';
+    singularName: 'strapi-identity-config';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email_enabled: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    enabled: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    enforce: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    from_email: Schema.Attribute.String & Schema.Attribute.DefaultTo<''>;
+    from_name: Schema.Attribute.String & Schema.Attribute.DefaultTo<''>;
+    issuer: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Strapi'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::strapi-identity.strapi-identity-config'
+    > &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.Text & Schema.Attribute.DefaultTo<''>;
+    publishedAt: Schema.Attribute.DateTime;
+    response_email: Schema.Attribute.String & Schema.Attribute.DefaultTo<''>;
+    subject: Schema.Attribute.String & Schema.Attribute.DefaultTo<''>;
+    text: Schema.Attribute.Text & Schema.Attribute.DefaultTo<''>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -951,11 +1231,17 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'plugin::comments.comment': PluginCommentsComment;
+      'plugin::comments.comment-report': PluginCommentsCommentReport;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
       'plugin::review-workflows.workflow': PluginReviewWorkflowsWorkflow;
       'plugin::review-workflows.workflow-stage': PluginReviewWorkflowsWorkflowStage;
+      'plugin::strapi-identity.email-otp': PluginStrapiIdentityEmailOtp;
+      'plugin::strapi-identity.mfa-temp': PluginStrapiIdentityMfaTemp;
+      'plugin::strapi-identity.mfa-token': PluginStrapiIdentityMfaToken;
+      'plugin::strapi-identity.strapi-identity-config': PluginStrapiIdentityStrapiIdentityConfig;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;

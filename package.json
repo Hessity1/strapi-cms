@@ -8,7 +8,8 @@
     "deploy": "strapi deploy",
     "develop": "strapi develop",
     "start": "strapi start",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "types:generate": "strapi-types generate --url http://localhost:1337"
   },
   "dependencies": {
     "@_sh/strapi-plugin-ckeditor": "^7.1.1",
@@ -24,6 +25,12 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
     "strapi-health-plugin": "^1.1.0",
+    "strapi-identity": "^0.6.0",
+    "strapi-plugin-comments": "^3.2.4",
+    "strapi-plugin-oembed": "^2.0.2",
+    "strapi-plugin-preview-button": "^3.0.2",
+    "strapi-plugin-webp-converter": "^1.0.4",
+    "strapi-typed-client": "^1.5.2",
     "styled-components": "^6.0.0"
   },
   "devDependencies": {
