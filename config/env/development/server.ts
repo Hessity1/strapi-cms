@@ -1,3 +1,4 @@
 export default () => ({
-    url: 'http://127.0.0.1:1337'
+    url: 'http://127.0.0.1:1337',
+    proxy: false,
 });
