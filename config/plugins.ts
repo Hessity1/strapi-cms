@@ -68,6 +68,9 @@ export default ({ env }) => ({
     },
     'strapi-typed-client': {
         enabled: true,
+        config: {
+            requireAuth: false,
+        },
     },
     upload: {
         config: {

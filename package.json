@@ -8,8 +8,7 @@
     "deploy": "strapi deploy",
     "develop": "strapi develop",
     "start": "strapi start",
-    "strapi": "strapi",
-    "types:generate": "strapi-types generate --url http://localhost:1337"
+    "strapi": "strapi"
   },
   "dependencies": {
     "@_sh/strapi-plugin-ckeditor": "^7.1.1",
