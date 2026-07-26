@@ -19,6 +19,9 @@ const previewContentType = (
 });
 
 export default ({ env }) => ({
+    ckeditor5: {
+        enabled: true,
+    },
     'strapi-identity': {
         enabled: true,
     },
