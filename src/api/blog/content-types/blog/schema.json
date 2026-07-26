@@ -40,7 +40,7 @@
           "localized": true
         }
       },
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "allowedTypes": [
         "images",
@@ -71,6 +71,12 @@
         "preset": "defaultHtml"
       },
       "required": true
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "blogs"
     }
   }
 }
