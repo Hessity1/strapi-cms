@@ -2,7 +2,9 @@ export default ({ env }) => ({
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
     sessions: {
-      accessTokenLifespan: 60 * 60, // 1 hour
+      // Since 5.49, active sessions renew the access token silently before expiry;
+      // idle logout happens after ~one accessTokenLifespan of inactivity.
+      accessTokenLifespan: 7 * 24 * 60 * 60, // 7 days (effective idle window)
       idleSessionLifespan: 7 * 24 * 60 * 60, // 7 days idle
       idleRefreshTokenLifespan: 30 * 24 * 60 * 60, // 30 days
       maxRefreshTokenLifespan: 30 * 24 * 60 * 60, // 30 days

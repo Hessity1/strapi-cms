@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-07-26T01:05:44.823Z"
+    "x-generation-date": "2026-07-26T16:37:54.605Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -183,7 +183,17 @@
             "deprecated": false,
             "required": false,
             "schema": {
-              "type": "string"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             }
           },
           {
@@ -689,7 +699,17 @@
             "deprecated": false,
             "required": false,
             "schema": {
-              "type": "string"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             }
           },
           {
@@ -2919,6 +2939,10 @@
                             "resetPasswordToken": {
                               "type": "string"
                             },
+                            "resetPasswordTokenExpiresAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
                             "registrationToken": {
                               "type": "string"
                             },
@@ -4636,6 +4660,10 @@
                                   },
                                   "resetPasswordToken": {
                                     "type": "string"
+                                  },
+                                  "resetPasswordTokenExpiresAt": {
+                                    "type": "string",
+                                    "format": "date-time"
                                   },
                                   "registrationToken": {
                                     "type": "string"
