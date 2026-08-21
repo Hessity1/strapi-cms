@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "redirects",
+  "info": {
+    "singularName": "redirect",
+    "pluralName": "redirects",
+    "displayName": "Redirect",
+    "description": "URL redirects (e.g. after a blog slug change). Consumed by the frontend as 301/302."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "from": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "to": {
+      "type": "string",
+      "required": true
+    },
+    "permanent": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "source": {
+      "type": "enumeration",
+      "enum": ["blog", "manual"],
+      "default": "manual",
+      "required": true
+    }
+  }
+}
