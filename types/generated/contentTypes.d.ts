@@ -475,6 +475,7 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     Metatags: Schema.Attribute.Component<'meta.meta', false>;
     publishedAt: Schema.Attribute.DateTime;
+    relatedPosts: Schema.Attribute.Relation<'oneToMany', 'api::blog.blog'>;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;

@@ -58,6 +58,11 @@
       "type": "component",
       "component": "meta.faq",
       "repeatable": true
+    },
+    "relatedPosts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blog.blog"
     }
   }
 }

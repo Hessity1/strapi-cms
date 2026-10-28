@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-08-21T14:30:08.507Z"
+    "x-generation-date": "2026-10-28T18:30:25.225Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -2914,6 +2914,20 @@
                   "$ref": "#/components/schemas/MetaFaqComponent"
                 }
               },
+              "relatedPosts": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "example": "string or id"
+                }
+              },
               "locale": {
                 "type": "string"
               },
@@ -4371,6 +4385,27 @@
                         "$ref": "#/components/schemas/MetaFaqComponent"
                       }
                     },
+                    "relatedPosts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ]
+                          },
+                          "documentId": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
                     "createdAt": {
                       "type": "string",
                       "format": "date-time"
@@ -4527,6 +4562,27 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MetaFaqComponent"
+            }
+          },
+          "relatedPosts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "documentId": {
+                  "type": "string"
+                }
+              }
             }
           },
           "createdAt": {
@@ -6201,6 +6257,27 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/MetaFaqComponent"
+                  }
+                },
+                "relatedPosts": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "documentId": {
+                        "type": "string"
+                      }
+                    }
                   }
                 },
                 "createdAt": {
